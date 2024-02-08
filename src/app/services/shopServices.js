@@ -5,7 +5,7 @@ import { base_url } from '../../firebase/db'
 export const shopApi = createApi({
   reducerPath: 'shopApi',
   baseQuery: fetchBaseQuery({ baseUrl: base_url }),
-  tagTypes:["image"],
+  tagTypes:["image","order"],
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: (category) => `products.json?orderBy="category"&equalTo="${category}"`,
@@ -17,11 +17,22 @@ export const shopApi = createApi({
         query: () => "categories.json"
     }),
     postOrders: builder.mutation({
-      query: (order) => ({
-        url:"orders.json",
+      query: ({localId,order}) => ({
+        url:`orders/${localId}.json`,
         method:"POST",
         body:order
-      })
+      }),
+      invalidatesTags:["order"]
+  }),
+  
+  getOrders: builder.query({
+    query: (localId) => `orders/${localId}.json`,
+    transformResponse:(response) => {
+     if(!response) return []
+     const data = Object.keys(response).map(key =>({id:key,...response[key]}))
+     return data
+    },
+    providesTags:["order"]
   }),
     postProfileImage: builder.mutation({
       query: ({localId,image}) => ({
@@ -38,4 +49,4 @@ export const shopApi = createApi({
   }),
 })
 
-export const { useGetProductsQuery,useGetProductQuery,useGetCategoriesQuery , usePostOrdersMutation ,usePostProfileImageMutation,useGetProfileImageQuery } = shopApi
+export const { useGetProductsQuery,useGetProductQuery, useGetCategoriesQuery, usePostOrdersMutation, useGetOrdersQuery, usePostProfileImageMutation, useGetProfileImageQuery } = shopApi

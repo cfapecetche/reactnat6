@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+
+
 const initialState = {
   value: {
     email:null,
@@ -19,7 +21,7 @@ export const authSlice = createSlice({
     },
     clearUser: (state) => {
       state.value = {
-        email : null,
+        email:null,
         idToken:null,
         localId:null
 
@@ -29,6 +31,6 @@ export const authSlice = createSlice({
 })
 
 
-export const { setUser, clearUser} = authSlice.actions
+export const { setUser, clearUser, getUser} = authSlice.actions
 
 export default authSlice.reducer

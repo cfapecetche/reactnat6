@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "clase6",
-    "slug": "clase6",
+    "name": "ecommerce_cfa",
+    "slug": "ecommerce_cfa",
     "version": "1.0.0",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",

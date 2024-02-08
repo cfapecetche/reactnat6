@@ -6,11 +6,14 @@ import SubmitButton from '../Components/SubmitButton'
 import { useLoginMutation } from '../app/services/auth'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../features/auth/authSlice'
-
+import { insertSession } from '../database'
+import Container, { Toast } from 'toastify-react-native'
 
 
 
 const Login = ({navigation}) => {
+
+
   const dispatch = useDispatch()
   const [triggerLogin,{data,isError,isSuccess,error,isLoading}] = useLoginMutation()
   const [email,setEmail] = useState("")
@@ -18,7 +21,10 @@ const Login = ({navigation}) => {
 
   useEffect(()=>{
     if(isSuccess) dispatch(setUser(data))
-    if(isError) console.log(error)
+    if (data) insertSession(data)
+      .then(result => console.log(result))
+      .catch(err => console.log(err)) 
+    if(isError)  Toast.success ('Credenciales incorrectas')
   },[data,isError,isSuccess])
 
 
@@ -26,8 +32,10 @@ const Login = ({navigation}) => {
     triggerLogin({email,password})
   }
   return (
+    
     <View style={styles.main}>
-      <View style={styles.container}>
+      <Container animationStyle="rightInOut" position="top" />
+            <View style={styles.container}>
           <Text style={styles.title} >Login</Text>
           <InputForm
             label="Email"
@@ -47,7 +55,9 @@ const Login = ({navigation}) => {
               <Pressable onPress={()=> navigation.navigate("Signup")} >
               <Text style={styles.subLink}>Registro</Text>
           </Pressable>
+        
       </View>
+     
     </View>
   )
 }

@@ -1,13 +1,12 @@
 import { Pressable,StyleSheet, Text, View } from 'react-native'
 import {Entypo} from "@expo/vector-icons"
 import { colors } from '../Global/colors'
-import { useDispatch, useSelector } from 'react-redux'
 import { removeItem } from '../features/cart/cartSlice'
-import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 const CartItem = ({item}) => {
-    const dispatch = useDispatch()
-      
+ const dispatch = useDispatch()
+   
   
   return (
     <View style={styles.container}>

@@ -5,9 +5,15 @@ import CartStack from "./CartStack"
 import { colors } from '../Global/colors'
 import OrdersStack from './OrdersStack'
 import TabIcon from '../Components/TabIcon'
+import TabIconCart from '../Components/TabIconCart'
+import CartTotalItems from '../Components/CartTotalItems'
 import ProfileStack from './ProfileStack'
+import {MaterialIcons} from '@expo/vector-icons'
+import LogoutStack from './LogoutStack'
+
 
 const Tab = createBottomTabNavigator()
+
 
 
 const TabNavigator = () => {
@@ -31,9 +37,12 @@ const TabNavigator = () => {
               name="CartStack" 
               component={CartStack}
               options={{
-                tabBarIcon:({focused}) =>  <TabIcon icon="shopping-cart" label="Carrito" focused={focused}/> 
+                tabBarIcon:({focused}) =>  <><TabIconCart icon="shopping-cart" label="Carrito" focused={focused}/>
+                <CartTotalItems  label={CartTotalItems}/></>  
               }}
              />
+
+             
              <Tab.Screen 
               name="OrdersStack" 
               component={OrdersStack}
@@ -48,6 +57,14 @@ const TabNavigator = () => {
                 tabBarIcon:({focused}) => <TabIcon icon="user" label="Perfil" focused={focused}/> 
               }}
              />
+
+            <Tab.Screen 
+              name="LogoutStack" 
+              component={LogoutStack}
+              options={{
+                tabBarIcon:({focused}) => <MaterialIcons name='logout' size={25} color="red" label="Logout" focused={focused}/> 
+              }}
+             />
       </Tab.Navigator>
   )
 }
@@ -59,10 +76,10 @@ const styles = StyleSheet.create({
       backgroundColor:colors.color3,
       elevation:4,
       position:"absolute",
-      bottom:25,
-      left:20,
-      right:20,
-      borderRadius:15,
+      bottom:0,
+      left:0,
+      right:0,
+      borderRadius:3,
       height:90
 
 

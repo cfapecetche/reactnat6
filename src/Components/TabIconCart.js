@@ -1,16 +1,16 @@
 import { StyleSheet, Text, View } from 'react-native'
 import {Entypo} from "@expo/vector-icons"
 
-const TabIcon = ({icon,label,focused}) => {
+const TabIconCart = ({icon,label,focused}) => {
   return (
     <View style={styles.container}>
-      <Entypo name={icon} size={35} color={focused ? "grey" : "#EEE"}/>
+      <Entypo name={icon} size={25} color={focused ? "grey" : "#EEE"}/>
       <Text style={{...styles.text,...{color:focused ? "white" : "#EEE"}}}>{label}</Text>
     </View>
   )
 }
 
-export default TabIcon
+export default TabIconCart
 
 const styles = StyleSheet.create({
     container:{

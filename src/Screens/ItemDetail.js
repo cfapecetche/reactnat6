@@ -1,20 +1,40 @@
-import { StyleSheet, Text, View , Image, Pressable } from 'react-native'
+import { StyleSheet, Text, View , Image, Pressable, Alert, Modal } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { colors } from '../Global/colors'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { addItem } from '../features/cart/cartSlice'
+import Container, { Toast } from 'toastify-react-native'
 
-const ItemDetail = ({route}) => {
+
+const ItemDetail = ({navigation,route}) => {
+
   const dispatch = useDispatch()
   const product = useSelector((state)=> state.shop.value.productSelected)
   const images = product.images ? product.images : []
+  
+  
+  const addCartProduct = () =>{
+        dispatch(addItem(product))
+        Toast.success ('Se agrego correctamente')
+        
+        
+   }
 
+   const backProduct = () =>{
+    navigation.goBack()
+}
+ 
 
-
+ 
+ 
   return (
     <View style={styles.container}>
+       <Container animationStyle="rightInOut" position="top" />
       <View style={styles.content} >
+          
+     
+          
           <Image
             style={styles.image}
             source={{uri:images[2]}}
@@ -26,8 +46,11 @@ const ItemDetail = ({route}) => {
           </View>
           <View style={styles.containerPrice}>
             <Text style={styles.price}>$ {product.price}</Text>
-            <Pressable style={styles.buyNow} onPress={()=> dispatch(addItem(product)) }>
-              <Text style={styles.buyNowText}>Carrito</Text>
+            <Pressable style={styles.buyNow} onPress={addCartProduct}>
+              <Text style={styles.buyNowText}>Agregar al carrito</Text>
+            </Pressable>
+            <Pressable style={styles.buyNow} onPress={backProduct}>
+              <Text style={styles.buyNowText}>Volver</Text>
             </Pressable>
           </View>
         </View>
